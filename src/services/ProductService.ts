@@ -3,6 +3,7 @@ import axios from "axios";
 import { DraftProductSchema, Product, ProductSchema, ProductsSchema } from "../types";
 import { toBoolean } from "../utils";
 
+const API_URL = import.meta.env.API_URL || 'http://localhost:4000';
 type ProductData = {
     [k: string]: FormDataEntryValue
 }
@@ -14,7 +15,7 @@ export async function addProduct(formData: ProductData) {
             price: +formData.price
         })
         if(result.success) {
-            const url = `http://localhost:4000/api/products`;
+            const url = `${API_URL}/api/products`;
             await axios.post(url, {
                 name: result.output.name,
                 price: result.output.price
@@ -29,7 +30,7 @@ export async function addProduct(formData: ProductData) {
 
 export async function getProducts() {
     try {
-        const url = `http://localhost:4000/api/products`;
+        const url = `${API_URL}/api/products`;
         const { data } = await axios.get(url);
         const result = safeParse(ProductsSchema, data.data);
         if(result.success) {
@@ -42,7 +43,7 @@ export async function getProducts() {
 
 export async function getProductById(id: Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`;
+        const url = `${API_URL}/api/products/${id}`;
         const { data } = await axios.get(url);
         const result = safeParse(ProductSchema, data.data);
         if(result.success) {
@@ -63,7 +64,7 @@ export async function updateProduct(data: ProductData, id: Product['id']) {
             availability: toBoolean(data.availability.toString())
         });
         if(result.success) {
-            const url = `http://localhost:4000/api/products/${id}`;
+            const url = `${API_URL}/api/products/${id}`;
             await axios.put(url, result.output);
         }
     } catch (error) {
@@ -73,7 +74,7 @@ export async function updateProduct(data: ProductData, id: Product['id']) {
 
 export async function deleteProduct(id: Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`;
+        const url = `${API_URL}/api/products/${id}`;
         await axios.delete(url);
     } catch (error) {
         console.log(error);
@@ -82,7 +83,7 @@ export async function deleteProduct(id: Product['id']) {
 
 export async function updateAvailability(id: Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`;
+        const url = `${API_URL}/api/products/${id}`;
         await axios.patch(url);
     } catch (error) {
         console.log(error);
