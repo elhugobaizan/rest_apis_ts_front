@@ -3,7 +3,8 @@ import axios from "axios";
 import { DraftProductSchema, Product, ProductSchema, ProductsSchema } from "../types";
 import { toBoolean } from "../utils";
 
-const API_URL = import.meta.env.API_URL || 'http://localhost:4000';
+//const API_URL = import.meta.env.API_URL || 'http://localhost:4000';
+const API_URL = 'https://rest-apis-ts-server-0bc7.onrender.com';
 type ProductData = {
     [k: string]: FormDataEntryValue
 }
